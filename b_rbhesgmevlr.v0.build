@@ -1,0 +1,59 @@
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { ClipboardCopy, CheckCircle } from 'lucide-react'
+
+export default function VerifiedZeroDomainVerification() {
+  const [domain] = useState('v0.dev')
+  const [verificationCode] = useState('zioyzd538ehx0gbmixy05q')
+  const [isVerified] = useState(true)
+
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle>Verified.zero Domain Verification</CardTitle>
+        <CardDescription>Verify your domain ownership for Verified.zero</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="domain">Domain to verify</Label>
+          <Input
+            id="domain"
+            value={domain}
+            readOnly
+          />
+        </div>
+        <div className="space-y-2">
+          <Label>1. Add the following TXT record to your domain's DNS configuration:</Label>
+          <div className="flex items-center space-x-2 bg-secondary p-2 rounded">
+            <code className="text-sm break-all">v0-site-verification={verificationCode}</code>
+            <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0">
+              <ClipboardCopy className="h-4 w-4" />
+              <span className="sr-only">Copy verification code</span>
+            </Button>
+          </div>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          2. Wait for your DNS changes to propagate. This can take up to 24 hours.
+        </p>
+        <div className="space-y-2">
+          <Label>3. Once propagated, click the verify button below:</Label>
+          <Button 
+            className="w-full" 
+            disabled={true}
+          >
+            Verified
+          </Button>
+        </div>
+      </CardContent>
+      <CardFooter className="flex items-center justify-center p-6 bg-green-100 dark:bg-green-900">
+        <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">
+          <CheckCircle className="h-5 w-5" />
+          <span>Domain verified successfully!</span>
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
